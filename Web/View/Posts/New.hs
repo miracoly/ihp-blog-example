@@ -1,24 +1,29 @@
 module Web.View.Posts.New where
+
 import Web.View.Prelude
 
-data NewView = NewView { post :: Post }
+data NewView = NewView {post :: Post}
 
 instance View NewView where
-    html NewView { .. } = [hsx|
+  html NewView {..} =
+    [hsx|
         {breadcrumb}
         <h1>New Post</h1>
         {renderForm post}
     |]
-        where
-            breadcrumb = renderBreadcrumb
-                [ breadcrumbLink "Posts" PostsAction
-                , breadcrumbText "New Post"
-                ]
+    where
+      breadcrumb =
+        renderBreadcrumb
+          [ breadcrumbLink "Posts" PostsAction,
+            breadcrumbText "New Post"
+          ]
 
 renderForm :: Post -> Html
-renderForm post = formFor post [hsx|
+renderForm post =
+  formFor
+    post
+    [hsx|
     {(textField #title)}
-    {(textField #body)}
+    {(textareaField #body) {helpText = "You can use Markdown here"}}
     {submitButton}
-
 |]

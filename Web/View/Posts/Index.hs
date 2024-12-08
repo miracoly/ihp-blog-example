@@ -15,6 +15,7 @@ instance View IndexView where
                         <th>Post</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>{forEach posts renderPost}</tbody>
@@ -31,6 +32,7 @@ renderPost :: Post -> Html
 renderPost post = [hsx|
     <tr>
         <td><a href={ShowPostAction post.id}>{post.title}</a></td>
+        <td>{post.createdAt |> timeAgo}</td>
         <td><a href={EditPostAction post.id} class="text-muted">Edit</a></td>
         <td><a href={DeletePostAction post.id} class="js-delete text-muted">Delete</a></td>
     </tr>
